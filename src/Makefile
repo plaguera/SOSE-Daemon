@@ -1,4 +1,4 @@
-OBJECTS = ../obj/Daemon.o
+OBJECTS = Daemon.o
 default: Daemon
 
 %.o: %.c
