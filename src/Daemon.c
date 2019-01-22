@@ -163,23 +163,18 @@ int main(int argc, char *argv[]) {
 		// Process all of the events in buffer returned by read()
 		for (p = buf; p < buf + numRead; ) {
 			event = (struct inotify_event *) p;
-			char* wd_path = NodeFromWD(event->wd).path;
-			const char* path = strcat(strcat(wd_path,"/"), event->name);
+			const char* wd_path = NodeFromWD(event->wd).path;
 
-			if (event->mask & IN_DELETE_SELF)
-				printf("%s\n", wd_path);
-			if ((event->mask & IN_CREATE || event->mask & IN_CREATE & IN_ISDIR) && Is_Directory(path)) {
-				WatchNode(path);
+			if ((event->mask & IN_CREATE || event->mask & IN_CREATE & IN_ISDIR)) {
+				char path[PATH_MAX + NAME_MAX];
+				snprintf(path, sizeof(path), "%s/%s", wd_path, event->name);
+				if (Is_Directory(path)) WatchNode(path);
 			}
 			else if (event->mask & IN_DELETE_SELF) {
 				inotify_rm_watch(inotify_fd, event->wd);
 				printf("Stopped Watching %s using wd %d\n", wd_path, event->wd);
 				Deletenode(event->wd, wd_path);
 			}
-			/*int i;
-			for (i = 0; i < size_tree; i++)
-				printf("%d, ", Tree[i].wd);
-			printf("\n");*/
 			//logInotifyEvent(event);
 			p += sizeof(struct inotify_event) + event->len;
 		}
