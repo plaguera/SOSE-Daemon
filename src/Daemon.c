@@ -1,18 +1,18 @@
-#include <sys/select.h>
-#include <sys/stat.h>
-#include <limits.h>
-#include <sys/select.h>
-#include <sys/inotify.h>
+#include <dirent.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <ftw.h>
+#include <limits.h>
 #include <signal.h>
 #include <stdarg.h>
-#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <errno.h>
+#include <sys/inotify.h>
+#include <sys/select.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #define errExit(msg)    do { perror(msg); exit(EXIT_FAILURE); } while (0)
 
@@ -22,12 +22,13 @@ typedef struct {
     char path[PATH_MAX];        /* Cached pathname */
 } node;
 
+int inotify_fd = 0;
 int size_tree = 0;
-int size_roots = 0;
 
 FILE *logfp = NULL;
 node *Tree = NULL;
-node *Roots = NULL;
+
+node Zero;
 
 int FindEmptyAddress()
 {
@@ -49,10 +50,21 @@ int Is_Directory(const char *path)
 
 node Addnode(int wd, const char *path)
 {
-    	int i = FindEmptyAddress();
+    int i = FindEmptyAddress();
 	Tree[i].wd = wd;
 	strncpy(Tree[i].path, path, PATH_MAX);
 	return Tree[i];
+}
+
+void Deletenode(int wd, const char *path)
+{
+	int i;
+    for (i = 0; i < size_tree; i++)
+        if (Tree[i].wd == wd) {
+			Tree[i].wd = -1;
+			strcpy(Tree[i].path, "");
+			break;
+		}
 }
 
 /* Display information from inotify_event structure */
@@ -93,12 +105,41 @@ node NodeFromWD(int wd)
 		if (Tree[i].wd == wd)
 			return Tree[i];
 	node zero;
-	return zero;
+	return Zero;
+}
+
+void WatchNode(const char* path)
+{
+	int wd = inotify_add_watch(inotify_fd, path, IN_ALL_EVENTS);
+	if (wd == -1) errExit("inotify_add_watch");
+	printf("Watching %s using wd %d\n", path, wd);
+	Addnode(wd, path);
+}
+
+void TraverseDirectory(const char *name)
+{
+    DIR *dir;
+    struct dirent *entry;
+
+    if (!(dir = opendir(name)))
+        return;
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_DIR) {
+            char path[PATH_MAX + NAME_MAX];
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+            snprintf(path, sizeof(path), "%s/%s", name, entry->d_name);
+            WatchNode(path);
+            TraverseDirectory(path);
+        }
+    }
+    closedir(dir);
 }
 
 #define BUF_LEN (10 * (sizeof(struct inotify_event) + NAME_MAX + 1))
 int main(int argc, char *argv[]) {
-	int inotifyFd, wd, j;
+	int wd, j;
 	char buf[BUF_LEN];
 	ssize_t numRead;
 	char *p;
@@ -106,38 +147,40 @@ int main(int argc, char *argv[]) {
 
 	if (argc < 2 || strcmp(argv[1], "--help") == 0) usageError(argv[0]);
 
-	inotifyFd = inotify_init(); /* Create inotify instance */
-	if (inotifyFd == -1) errExit("inotify_init");
-
-	size_roots = argc-1;
-	node roots[size_roots];
+	inotify_fd = inotify_init(); /* Create inotify instance */
+	if (inotify_fd == -1) errExit("inotify_init");
 	
 	for (j = 1; j < argc; j++) {
-	 	wd = inotify_add_watch(inotifyFd, argv[j], IN_ALL_EVENTS);
-		
-		if (wd == -1) errExit("inotify_add_watch");
-		roots[j-1] = Addnode(wd, argv[j]);
-		printf("Watching %s using wd %d\n", argv[j], wd);
+		WatchNode(argv[j]);
+	 	TraverseDirectory(argv[j]);
 	}
 
 	for (;;) { // Read events forever
-		numRead = read(inotifyFd, buf, BUF_LEN);
-		if (numRead == 0) errExit("read() from inotify fd returned 0!");
-		if (numRead == -1) errExit("read");
+		numRead = read(inotify_fd, buf, BUF_LEN);
+		if (numRead <= 0) errExit("read()");
 		printf("Read %ld bytes from inotify fd\n", (long) numRead);
 
 		// Process all of the events in buffer returned by read()
 		for (p = buf; p < buf + numRead; ) {
 			event = (struct inotify_event *) p;
-			const char* path = strcat(strcat(NodeFromWD(event->wd).path,"/"), event->name);
+			char* wd_path = NodeFromWD(event->wd).path;
+			const char* path = strcat(strcat(wd_path,"/"), event->name);
+
+			if (event->mask & IN_DELETE_SELF)
+				printf("%s\n", wd_path);
 			if ((event->mask & IN_CREATE || event->mask & IN_CREATE & IN_ISDIR) && Is_Directory(path)) {
-				wd = inotify_add_watch(inotifyFd, path, IN_ALL_EVENTS);
-				if (wd == -1) errExit("inotify_add_watch");
-				printf("Watching %s using wd %d\n", path, wd);
-				Addnode(wd, path);
+				WatchNode(path);
 			}
-				
-			logInotifyEvent(event);
+			else if (event->mask & IN_DELETE_SELF) {
+				inotify_rm_watch(inotify_fd, event->wd);
+				printf("Stopped Watching %s using wd %d\n", wd_path, event->wd);
+				Deletenode(event->wd, wd_path);
+			}
+			/*int i;
+			for (i = 0; i < size_tree; i++)
+				printf("%d, ", Tree[i].wd);
+			printf("\n");*/
+			//logInotifyEvent(event);
 			p += sizeof(struct inotify_event) + event->len;
 		}
 	}
