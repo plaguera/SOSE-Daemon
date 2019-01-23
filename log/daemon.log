@@ -186,4 +186,33 @@
 2019-01-23 17:21:15 -- wd = 1; mask = IN_DELETE IN_ISDIR; name = sub;
 2019-01-23 17:21:15 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub1;
 2019-01-23 17:21:15 -- wd = 9; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 17:21:15 -- wd = 1
+2019-01-23 17:21:15 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
+2019-01-23 17:21:15 -- wd = 9; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 17:21:15 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
+2019-01-23 17:21:15 -- wd = 9; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 17:21:15 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub1;
+2019-01-23 17:21:15 -- wd = 9; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 17:21:15 -- << "Stopped Watching ../test/sub1 using wd 9" >>
+2019-01-23 17:21:15 -- wd = 9; mask = IN_DELETE_SELF; 
+2019-01-23 17:21:15 -- wd = 9; mask = IN_IGNORED; 
+2019-01-23 17:21:15 -- wd = 1; mask = IN_DELETE IN_ISDIR; name = sub1;
+2019-01-23 17:21:23 -- << "Read 16 bytes from inotify fd" >>
+2019-01-23 17:21:23 -- wd = 1; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 17:21:23 -- << "Read 16 bytes from inotify fd" >>
+2019-01-23 17:21:23 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 17:21:23 -- << "Read 16 bytes from inotify fd" >>
+2019-01-23 17:21:23 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 17:21:23 -- << "Read 16 bytes from inotify fd" >>
+2019-01-23 17:21:23 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 18:20:38 -- << "Read 48 bytes from inotify fd" >>
+2019-01-23 18:20:38 -- wd = 1; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 18:20:38 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 18:20:38 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 18:28:22 -- << "Read 32 bytes from inotify fd" >>
+2019-01-23 18:28:22 -- wd = 1; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 18:28:22 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 18:28:24 -- << "Read 32 bytes from inotify fd" >>
+2019-01-23 18:28:24 -- << "Stopped Watching ../test using wd 1" >>
+2019-01-23 18:28:24 -- wd = 1; mask = IN_DELETE_SELF; 
+2019-01-23 18:28:24 -- wd = 1; mask = IN_IGNORED; 
+2019-01-23 18:28:49 -- << "Read -1 bytes from inotify fd" >>

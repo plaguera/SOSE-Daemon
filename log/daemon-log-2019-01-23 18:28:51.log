@@ -1,0 +1,5 @@
+2019-01-23 18:28:51 -- << "Watching ../test using wd 1" >>
+2019-01-23 18:28:51 -- << "Read 32 bytes from inotify fd" >>
+2019-01-23 18:28:51 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 18:28:51 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 18:29:01 -- << "Read -1 bytes from inotify fd" >>

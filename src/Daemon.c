@@ -17,7 +17,7 @@
 
 #define BUF_LEN (10 * (sizeof(struct inotify_event) + NAME_MAX + 1))
 #define ErrorExit(msg) do { perror(msg); exit(EXIT_FAILURE); } while (0)
-#define LOG_FILE "../log/daemon.log"
+#define LOG_FOLDER "../log/"
 
 typedef int bool;
 #define true 1
@@ -44,6 +44,7 @@ void AddWatch(const char* path);
 void DeleteNode(uint32_t wd, const char *path);
 int FindEmptyAddress();
 int GetPIDbyName(char* name);
+char* GetTimestamp();
 void HandleInotifyEvent(struct inotify_event * event);
 void HandleSignal(int signal);
 int Is_Directory(const char *path);
@@ -103,7 +104,10 @@ int main(int argc, char *argv[]) {
 
 	inotify_fd = inotify_init();
 	if (inotify_fd == -1) ErrorExit("inotify_init");
-	LogFD = fopen(LOG_FILE, "w");
+	
+	char log[1024];
+	sprintf(log, "%sdaemon-log-%s.log", LOG_FOLDER, GetTimestamp());
+	LogFD = fopen(log, "w");
 	for (i = 1; i < argc; i++) RecursiveAddWatch(argv[i]);
 
 	char *p;
