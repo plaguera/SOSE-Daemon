@@ -57,8 +57,6 @@ void UsageError(const char *proccess_name);
 
 int main(int argc, char *argv[]) {
 
-	
-
 	if (argc == 2 && strcmp(argv[1], "stop") == 0) {
 		int pid_from_name = GetPIDbyName(argv[0]);
 		if (pid_from_name >= 0) {
@@ -103,10 +101,9 @@ int main(int argc, char *argv[]) {
 	ssize_t bytes_read;
 	struct inotify_event *event;
 
-		LogFD = fopen(LOG_FILE, "w");
 	inotify_fd = inotify_init();
 	if (inotify_fd == -1) ErrorExit("inotify_init");
-	LogFD = fopen(LOG_FILE, "a");
+	LogFD = fopen(LOG_FILE, "w");
 	for (i = 1; i < argc; i++) RecursiveAddWatch(argv[i]);
 
 	char *p;
