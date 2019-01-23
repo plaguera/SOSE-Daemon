@@ -19,7 +19,6 @@
 #define ErrorExit(msg) do { perror(msg); exit(EXIT_FAILURE); } while (0)
 #define LOG_FILE "daemon.log"
 
-
 typedef struct {
     int wd;
     char path[PATH_MAX];
@@ -57,6 +56,13 @@ node NodeFromWD(int wd);
 void TraverseDirectory(const char *name);
 
 int main(int argc, char *argv[]) {
+	if (argc == 2 && strcmp(argv[1], "stop") == 0) {
+		int pid_from_name = GetPIDbyName(argv[0]);
+		if (pid_from_name >= 0) {
+			kill(pid_from_name, SIGKILL);
+			exit(EXIT_FAILURE);
+		}
+	}
 	if (argc < 2 || strcmp(argv[1], "--help") == 0) UsageError(argv[0]);
 
 	int pid_from_name = GetPIDbyName(argv[0]);
@@ -64,7 +70,6 @@ int main(int argc, char *argv[]) {
 		printf("%s is already running in the background!. PID = %d\n", argv[0], pid_from_name);
 		exit(EXIT_FAILURE);
 	}
-
 
 	/* Our process ID and Session ID */
 	pid_t pid, sid;
