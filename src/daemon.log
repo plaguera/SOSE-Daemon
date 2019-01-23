@@ -1,0 +1,12 @@
+2019-01-23 00:14:29 -- wd = 1; mask = IN_ISDIR IN_OPEN ; 
+2019-01-23 00:14:29 -- wd = 1; mask = IN_ACCESS IN_ISDIR ; 
+2019-01-23 00:14:29 -- wd = 1; mask = IN_ISDIR IN_OPEN ;  name = sub;
+2019-01-23 00:14:29 -- wd = 2; mask = IN_ISDIR IN_OPEN ; 
+2019-01-23 00:14:29 -- wd = 1; mask = IN_ACCESS IN_ISDIR ;  name = sub;
+2019-01-23 00:14:29 -- wd = 2; mask = IN_ACCESS IN_ISDIR ; 
+2019-01-23 00:14:29 -- wd = 1; mask = IN_ACCESS IN_ISDIR ;  name = sub;
+2019-01-23 00:14:29 -- wd = 2; mask = IN_ACCESS IN_ISDIR ; 
+2019-01-23 00:14:29 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR ;  name = sub;
+2019-01-23 00:14:29 -- wd = 2; mask = IN_CLOSE_NOWRITE IN_ISDIR ; 
+2019-01-23 00:14:29 -- wd = 1; mask = IN_ACCESS IN_ISDIR ; 
+2019-01-23 00:14:29 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR ; 
