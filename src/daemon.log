@@ -1,104 +1,48 @@
-2019-01-23 00:55:13 -- "Watching ../test using wd 1"
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Watching ../test/sub using wd 2"
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub;
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub;
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 2; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 2; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 2; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 2; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 3; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
-2019-01-23 00:55:13 -- "Watching ../test/sub1 using wd 3"
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub1;
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub1;
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 4; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 4; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 4; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- "Read 32 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 3; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 4; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 16 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
-2019-01-23 00:55:13 -- "Read 448 bytes from inotify fd"
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub;
-2019-01-23 00:55:13 -- wd = 2; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- wd = 2; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- wd = 2; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub;
-2019-01-23 00:55:13 -- wd = 2; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub1;
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ISDIR IN_OPEN; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub1;
-2019-01-23 00:55:13 -- wd = 3; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
-2019-01-23 00:55:13 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 01:27:24 -- "Watching ../test using wd 1"
+2019-01-23 01:27:24 -- "Watching ../test/sub using wd 2"
+2019-01-23 01:27:24 -- "Watching ../test/sub1 using wd 3"
+2019-01-23 01:27:24 -- "Read 448 bytes from inotify fd"
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub;
+2019-01-23 01:27:24 -- wd = 2; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
+2019-01-23 01:27:24 -- wd = 2; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
+2019-01-23 01:27:24 -- wd = 2; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub;
+2019-01-23 01:27:24 -- wd = 2; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub1;
+2019-01-23 01:27:24 -- wd = 3; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
+2019-01-23 01:27:24 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
+2019-01-23 01:27:24 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub1;
+2019-01-23 01:27:24 -- wd = 3; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:24 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 01:27:40 -- "Watching ../test using wd 1"
+2019-01-23 01:27:40 -- "Watching ../test/sub using wd 2"
+2019-01-23 01:27:40 -- "Watching ../test/sub1 using wd 3"
+2019-01-23 01:27:40 -- "Read 448 bytes from inotify fd"
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub;
+2019-01-23 01:27:40 -- wd = 2; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
+2019-01-23 01:27:40 -- wd = 2; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub;
+2019-01-23 01:27:40 -- wd = 2; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub;
+2019-01-23 01:27:40 -- wd = 2; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ISDIR IN_OPEN; name = sub1;
+2019-01-23 01:27:40 -- wd = 3; mask = IN_ISDIR IN_OPEN; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
+2019-01-23 01:27:40 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ACCESS IN_ISDIR; name = sub1;
+2019-01-23 01:27:40 -- wd = 3; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; name = sub1;
+2019-01-23 01:27:40 -- wd = 3; mask = IN_CLOSE_NOWRITE IN_ISDIR; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_ACCESS IN_ISDIR; 
+2019-01-23 01:27:40 -- wd = 1; mask = IN_CLOSE_NOWRITE IN_ISDIR; 

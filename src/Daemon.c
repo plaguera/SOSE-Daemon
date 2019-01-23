@@ -44,6 +44,8 @@ void DeleteNode(int wd, const char *path);
 
 void WatchNode(const char* path);
 
+int GetPIDbyName(char* name);
+
 void LogEvent(struct inotify_event *i);
 
 void LogMessage(const char* format, ...);
@@ -57,6 +59,13 @@ void TraverseDirectory(const char *name);
 int main(int argc, char *argv[]) {
 	if (argc < 2 || strcmp(argv[1], "--help") == 0) UsageError(argv[0]);
 
+	int pid_from_name = GetPIDbyName(argv[0]);
+	if (pid_from_name >= 0) {
+		printf("%s is already running in the background!. PID = %d\n", argv[0], pid_from_name);
+		exit(EXIT_FAILURE);
+	}
+
+
 	/* Our process ID and Session ID */
 	pid_t pid, sid;
         
@@ -67,7 +76,7 @@ int main(int argc, char *argv[]) {
 	}
 	/* If we got a good PID, then we can exit the parent process. */
 	if (pid > 0) {
-		printf("Daemon running in the background. PID = %d\n", pid);
+		printf("%s running in the background. PID = %d\n", argv[0], pid);
 		exit(EXIT_SUCCESS);
 	}
 
@@ -153,6 +162,49 @@ void DeleteNode(int wd, const char *path)
 			strcpy(Tree[i].path, "");
 			break;
 		}
+}
+
+int GetPIDbyName(char* name)
+{
+    DIR* dir;
+    struct dirent* ent;
+    char* endptr;
+    char buf[512];
+    
+    if (!(dir = opendir("/proc"))) {
+        perror("can't open /proc");
+        return -1;
+    }
+
+    while((ent = readdir(dir)) != NULL) {
+        /* if endptr is not a null character, the directory is not
+         * entirely numeric, so ignore it */
+        long lpid = strtol(ent->d_name, &endptr, 10);
+        if (*endptr != '\0') {
+            continue;
+        }
+
+        /* try to open the cmdline file */
+        snprintf(buf, sizeof(buf), "/proc/%ld/cmdline", lpid);
+        FILE* fp = fopen(buf, "r");
+        
+        if (fp) {
+            if (fgets(buf, sizeof(buf), fp) != NULL) {
+                /* check the first token in the file, the program name */
+                char* first = strtok(buf, " ");
+                if (!strcmp(first, name) && (pid_t)lpid != getpid()) {
+                    fclose(fp);
+                    closedir(dir);
+                    return (pid_t)lpid;
+                }
+            }
+            fclose(fp);
+        }
+        
+    }
+    
+    closedir(dir);
+    return -1;
 }
 
 char* GetTimestamp() {
