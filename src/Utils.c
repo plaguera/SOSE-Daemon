@@ -2,6 +2,10 @@
 
 char time_buffer[26];
 
+bool StringContains(char* string, const char* sub) {
+	return strstr(string, sub) != NULL;
+}
+
 void IsAlreadyRunning(const char* process)
 {
 	int pid = GetPIDbyName(process);

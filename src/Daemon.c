@@ -5,6 +5,8 @@ node Zero;
 int inotify_fd = 0;
 int size_watch_list = 0;
 int client_socket = 0;
+int port = 8888;
+char* address = "127.0.0.1";
 volatile sig_atomic_t keep_going = 1;
 
 FILE *LogFD = NULL;
@@ -18,6 +20,21 @@ int main(int argc, char *argv[]) {
 	
 	// If Daemon is already running, exit as failure
 	IsAlreadyRunning(argv[0]);
+	int option_index;
+	while (( option_index = getopt(argc, argv, "s:p:")) != -1) {
+		switch(option_index) {
+			case 's':
+				address = optarg;
+				break;
+			case 'p':
+				port = atoi(optarg);
+				break;
+			default:
+				break;
+		}
+	}
+	if (argv[optind] == NULL)
+		ErrorExit("Mandatory argument(s) missing\n");
 
 	// Run Daemon in Background
 	/* Our process ID and Session ID */
@@ -39,13 +56,13 @@ int main(int argc, char *argv[]) {
 
 	// Check validity of arguments as folders
 	int i;
-	for (i = 1; i < argc; i++) {
+	for (i = optind; i < argc; i++) {
 		if (!IsDirectory(argv[i])) ErrorExit("Only Directories can be Watched!\n");
 		if (argv[i][strlen(argv[i]) - 1] == '/') argv[i][strlen(argv[i]) - 1] = '\0';
 	}
 
 	struct sockaddr_in server_addr;
-	int server_socket, server_addr_size, port = 8888;
+	int server_socket, server_addr_size;
 	char ip[INET_ADDRSTRLEN];
 	int len;
 
@@ -53,7 +70,7 @@ int main(int argc, char *argv[]) {
 	memset(server_addr.sin_zero,'\0',sizeof(server_addr.sin_zero));
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port);
-	server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	server_addr.sin_addr.s_addr = inet_addr(address);
 
 	char log[1024];
 	snprintf(log, 1024, "%sdaemon-log-%s.log", LOG_FOLDER, GetTimestamp());
@@ -72,7 +89,7 @@ int main(int argc, char *argv[]) {
 	inotify_fd = inotify_init();
 	if (inotify_fd == -1) ErrorExit("inotify_init");
 
-	for (i = 1; i < argc; i++) RecursiveAddWatch(argv[i]);
+	for (i = optind; i < argc; i++) RecursiveAddWatch(argv[i]);
 
 	char *p;
 	while (keep_going) {
@@ -138,45 +155,22 @@ void LogEvent(struct inotify_event *i) {
 	if (i->len > 0) snprintf(buffer2, PATH_MAX, "name = %s;", i->name);
 	strcat(buffer, buffer2);
 	LogMessage(buffer);
-	/*fprintf(LogFD, "%s -- wd =%2d; ", GetTimestamp(), i->wd);
-	if (i->cookie > 0) fprintf(LogFD, "cookie =%4d; ", i->cookie);
-	fprintf(LogFD, "mask =");
-	if (i->mask & IN_ACCESS) 		fprintf(LogFD, " IN_ACCESS");
-	if (i->mask & IN_ATTRIB) 		fprintf(LogFD, " IN_ATTRIB");
-	if (i->mask & IN_CLOSE_NOWRITE) fprintf(LogFD, " IN_CLOSE_NOWRITE");
-	if (i->mask & IN_CLOSE_WRITE)	fprintf(LogFD, " IN_CLOSE_WRITE");
-	if (i->mask & IN_CREATE) 		fprintf(LogFD, " IN_CREATE");
-	if (i->mask & IN_DELETE) 		fprintf(LogFD, " IN_DELETE");
-	if (i->mask & IN_DELETE_SELF) 	fprintf(LogFD, " IN_DELETE_SELF");
-	if (i->mask & IN_IGNORED) 		fprintf(LogFD, " IN_IGNORED");
-	if (i->mask & IN_ISDIR) 		fprintf(LogFD, " IN_ISDIR");
-	if (i->mask & IN_MODIFY) 		fprintf(LogFD, " IN_MODIFY");
-	if (i->mask & IN_MOVE_SELF) 	fprintf(LogFD, " IN_MOVE_SELF");
-	if (i->mask & IN_MOVED_FROM) 	fprintf(LogFD, " IN_MOVED_FROM");
-	if (i->mask & IN_MOVED_TO) 		fprintf(LogFD, " IN_MOVED_TO");
-	if (i->mask & IN_OPEN) 			fprintf(LogFD, " IN_OPEN");
-	if (i->mask & IN_Q_OVERFLOW) 	fprintf(LogFD, " IN_Q_OVERFLOW");
-	if (i->mask & IN_UNMOUNT) 		fprintf(LogFD, " IN_UNMOUNT");
-	fprintf(LogFD, "; ");
-	if (i->len > 0) fprintf(LogFD, "name = %s;", i->name);
-	fprintf(LogFD, "\n");*/
 }
-
+char *hello = "Hello from client"; 
 void LogMessage(const char* format, ...) {
 	char buffer[MSG_LENGTH];
     va_list args;
     va_start(args, format);
     int rc = vsnprintf(buffer, sizeof(buffer), format, args);
     va_end(args);
-	fprintf(LogFD, "%s -- << \"%s\" >>\n", GetTimestamp(), buffer);
-	//int len = send(client_socket,buffer,strlen(buffer), 0);
-	int len = write(client_socket, buffer,strlen(buffer));
+	int len = send(client_socket, buffer,sizeof(buffer), 0);
 	if(len < 0) ErrorExit("message not sent");
+	//fprintf(LogFD, "%s -- << \"%s\" >>\n", GetTimestamp(), buffer);
 }
 
 void UsageError(const char *proccess_name)
 {
-    fprintf(stderr, "Usage: %s directory-path\n\n", proccess_name);
+    fprintf(stderr, "Usage: %s (-s server_address) (-p port_number) directories_to_watch\n\n", proccess_name);
     exit(EXIT_FAILURE);
 }
 

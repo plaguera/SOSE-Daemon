@@ -16,10 +16,6 @@
 
 #define LOG_FOLDER "../log/"
 
-typedef int bool;
-#define true 1
-#define false 0
-
 typedef struct {
     uint32_t wd;
     char path[PATH_MAX];

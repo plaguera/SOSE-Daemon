@@ -3,7 +3,7 @@
 
 ## Instrucciones de Uso
 
-En la careta src del proyecto viene incluido un Makefile que compila los archivos necesarios para generar el programa.
+En la carpeta src del proyecto viene incluido un Makefile que compila los archivos necesarios para generar el programa.
 
 ##### Compilar el demonio (cliente):
 
@@ -76,4 +76,6 @@ Finalizada la inicialización, se entra en la ejecución del bucle principal del
 
 El inicio de la ejecución del servidor es muy similar al del demonio, primero se comprueban los argumentos, parando el servidor si es `stop`. A continuación, se utiliza `fork()` para ejecutar el servidor en segundo plano, se establece el `handler`para `SIGTERM`, se abre un nuevo archivo para almacenar los `logs` que se reciban durante esta ejecución, y se abre un `socket` que escuche por nuevos clientes que quieran estaablecer una comunicación.
 
-En este caso el bucle principal tiene la función de escuchar constantemente pornuevos clientes y en el caso de que se encuentre uno, crear un nuevo hilo de ejecución que maneje la comunicación entre ese cliente y el servidor. Como se puede deducir, el servidor soporta la comunicación simultánea con varios clientes, sin embargo, el servidor no *loguea* los mensajes que recibe sino que los almacena y una vez cada 60 segundos escribe las estadísticas de cada uno de los clientes que se han conectado desde el inicio de su ejecución.
+En este caso el bucle principal tiene la función de escuchar constantemente por nuevos clientes y en el caso de que se encuentre uno, crear un nuevo hilo de ejecución que maneje la comunicación entre ese cliente y el servidor. Como se puede deducir, el servidor soporta la comunicación simultánea con varios clientes, sin embargo, el servidor no *loguea* los mensajes que recibe sino que los almacena y una vez cada 60 segundos (en otro hilo distinto) escribe las estadísticas de cada uno de los clientes que se han conectado desde el inicio de su ejecución.
+
+\* La interferencia entre hilos es controlada mediante un mutex

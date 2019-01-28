@@ -14,9 +14,23 @@ struct client_info {
 	char ip[INET_ADDRSTRLEN];
 };
 
+typedef struct {
+	char time[26];
+	char text[MSG_LENGTH];
+} message;
+
+typedef struct {
+	char ip[INET_ADDRSTRLEN];
+	int n_messages;
+	message messages[1024];
+} client_data;
+
+void AddClient(const char* ip);
+void AddMessage(const char* ip, char* message);
 void HandleSignal(int signal);
-void LogMessage(const char* ip, const char* message);
-void LogMessagef(const char* ip, const char* format, ...);
+void* Log(void *arg);
+void LogClient(client_data client);
+void LogMessages(int n, message* messages);
 void* ReceiveMessages(void *sock);
 
 #endif
